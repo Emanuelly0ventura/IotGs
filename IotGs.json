@@ -1,0 +1,1087 @@
+[
+    {
+        "id": "556f124d2b9639ba",
+        "type": "tab",
+        "label": "Fluxo 2",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "565da0e4aeb32259",
+        "type": "mqtt in",
+        "z": "556f124d2b9639ba",
+        "name": "",
+        "topic": "estufa/ldr/luminosidade",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "a0d7c8f8cf3264a2",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 680,
+        "y": 160,
+        "wires": [
+            [
+                "49eb1216d39032f2"
+            ]
+        ]
+    },
+    {
+        "id": "49eb1216d39032f2",
+        "type": "ui_text",
+        "z": "556f124d2b9639ba",
+        "group": "0ca882c5117c7127",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "luminosidade",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 930,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "b4a3436af0cf6ce4",
+        "type": "mqtt in",
+        "z": "556f124d2b9639ba",
+        "name": "",
+        "topic": "estufa/bmp180/temperatura",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "a0d7c8f8cf3264a2",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 700,
+        "y": 220,
+        "wires": [
+            [
+                "1ce49f7bfb8d40ed"
+            ]
+        ]
+    },
+    {
+        "id": "1ce49f7bfb8d40ed",
+        "type": "ui_text",
+        "z": "556f124d2b9639ba",
+        "group": "0ca882c5117c7127",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "temperatura",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 930,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "12d856c68800dca7",
+        "type": "sqlite",
+        "z": "556f124d2b9639ba",
+        "mydb": "8dc2c81d25beea29",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "banco",
+        "x": 1690,
+        "y": 140,
+        "wires": [
+            [
+                "ff5e4a608fd4ad25"
+            ]
+        ]
+    },
+    {
+        "id": "b1010ea0832fb50f",
+        "type": "function",
+        "z": "556f124d2b9639ba",
+        "name": "Mostrar dados",
+        "func": "msg.topic = `\nSELECT * FROM terrabyte\nORDER BY id DESC;\n`;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1520,
+        "y": 140,
+        "wires": [
+            [
+                "12d856c68800dca7"
+            ]
+        ]
+    },
+    {
+        "id": "4067ccd7c8717887",
+        "type": "inject",
+        "z": "556f124d2b9639ba",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 1300,
+        "y": 140,
+        "wires": [
+            [
+                "b1010ea0832fb50f"
+            ]
+        ]
+    },
+    {
+        "id": "27b261c5f08d4f2d",
+        "type": "comment",
+        "z": "556f124d2b9639ba",
+        "name": "Banco",
+        "info": "",
+        "x": 1570,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "ff5e4a608fd4ad25",
+        "type": "debug",
+        "z": "556f124d2b9639ba",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1840,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "937fbd23cb287bf8",
+        "type": "inject",
+        "z": "556f124d2b9639ba",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 1320,
+        "y": 540,
+        "wires": [
+            [
+                "c08104286dbccc48"
+            ]
+        ]
+    },
+    {
+        "id": "c08104286dbccc48",
+        "type": "function",
+        "z": "556f124d2b9639ba",
+        "name": "Tabela",
+        "func": "msg.topic = `CREATE TABLE IF NOT EXISTS terrabyte (\n    id INTEGER PRIMARY KEY AUTOINCREMENT,\n    umidade number(40),\n    luminosidade number(40),\n    temperatura number(40),\n    pressao number(40),\n    altitude number(80)\n);\n`;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1510,
+        "y": 540,
+        "wires": [
+            [
+                "da866d3d7ca23d85"
+            ]
+        ]
+    },
+    {
+        "id": "da866d3d7ca23d85",
+        "type": "sqlite",
+        "z": "556f124d2b9639ba",
+        "mydb": "8dc2c81d25beea29",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "banco",
+        "x": 1650,
+        "y": 540,
+        "wires": [
+            [
+                "5cd44b93d313d628"
+            ]
+        ]
+    },
+    {
+        "id": "5cd44b93d313d628",
+        "type": "debug",
+        "z": "556f124d2b9639ba",
+        "name": "debug 4",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1800,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "b83bba8b11574077",
+        "type": "join",
+        "z": "556f124d2b9639ba",
+        "name": "",
+        "mode": "custom",
+        "build": "object",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "useparts": false,
+        "accumulate": true,
+        "timeout": "",
+        "count": "2",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 1480,
+        "y": 280,
+        "wires": [
+            [
+                "a3f05a3f6a261a35"
+            ]
+        ]
+    },
+    {
+        "id": "a3f05a3f6a261a35",
+        "type": "function",
+        "z": "556f124d2b9639ba",
+        "name": "Salvar dados",
+        "func": "msg.topic = `\nINSERT INTO terrabyte (umidade, luminosidade, temperatura, pressao, altitude)\nVALUES ('${msg.payload[\"estufa/dht22/umidade\"]}',\n'${msg.payload[\"estufa/ldr/luminosidade\"]}',\n'${msg.payload[\"estufa/bmp180/temperatura\"]}',\n'${msg.payload[\"estufa/bmp180/pressao\"]}',\n'${msg.payload[\"estufa/bmp180/altitude\"]}');\n`;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1630,
+        "y": 280,
+        "wires": [
+            [
+                "6166336ef3f897b8"
+            ]
+        ]
+    },
+    {
+        "id": "1f288de29c00e5ba",
+        "type": "comment",
+        "z": "556f124d2b9639ba",
+        "name": "Dashboard",
+        "info": "",
+        "x": 760,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "6166336ef3f897b8",
+        "type": "sqlite",
+        "z": "556f124d2b9639ba",
+        "mydb": "8dc2c81d25beea29",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "banco",
+        "x": 1790,
+        "y": 280,
+        "wires": [
+            [
+                "01e6025983f03397"
+            ]
+        ]
+    },
+    {
+        "id": "01e6025983f03397",
+        "type": "debug",
+        "z": "556f124d2b9639ba",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1940,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "ebc08afbf06f1f49",
+        "type": "mqtt in",
+        "z": "556f124d2b9639ba",
+        "name": "",
+        "topic": "estufa/dht22/umidade",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "a0d7c8f8cf3264a2",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 680,
+        "y": 100,
+        "wires": [
+            [
+                "63b5bb9de340ce10"
+            ]
+        ]
+    },
+    {
+        "id": "63b5bb9de340ce10",
+        "type": "ui_text",
+        "z": "556f124d2b9639ba",
+        "group": "0ca882c5117c7127",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Umidade",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 920,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "90977484507727a5",
+        "type": "inject",
+        "z": "556f124d2b9639ba",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 1320,
+        "y": 600,
+        "wires": [
+            [
+                "9f48b6db1d058c18"
+            ]
+        ]
+    },
+    {
+        "id": "9f48b6db1d058c18",
+        "type": "function",
+        "z": "556f124d2b9639ba",
+        "name": "Deletar tabela",
+        "func": "msg.topic = `drop table terrabyte;\n`;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1540,
+        "y": 600,
+        "wires": [
+            [
+                "a73d3794f107ba4a"
+            ]
+        ]
+    },
+    {
+        "id": "a73d3794f107ba4a",
+        "type": "sqlite",
+        "z": "556f124d2b9639ba",
+        "mydb": "8dc2c81d25beea29",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "banco",
+        "x": 1710,
+        "y": 600,
+        "wires": [
+            [
+                "149995b93020d102"
+            ]
+        ]
+    },
+    {
+        "id": "149995b93020d102",
+        "type": "debug",
+        "z": "556f124d2b9639ba",
+        "name": "debug 3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1860,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "6a10303e9dfe7a74",
+        "type": "sqlite",
+        "z": "556f124d2b9639ba",
+        "mydb": "8dc2c81d25beea29",
+        "sqlquery": "fixed",
+        "sql": "SELECT \n    umidade, \n    luminosidade, \n    temperatura, \n    pressao, \n    altitude\nFROM terrabyte\nORDER BY id DESC;",
+        "name": "banco",
+        "x": 530,
+        "y": 560,
+        "wires": [
+            [
+                "c6897cd0ee143fd3"
+            ]
+        ]
+    },
+    {
+        "id": "b10591703bdcd038",
+        "type": "inject",
+        "z": "556f124d2b9639ba",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 340,
+        "y": 560,
+        "wires": [
+            [
+                "6a10303e9dfe7a74"
+            ]
+        ]
+    },
+    {
+        "id": "c6897cd0ee143fd3",
+        "type": "ui_table",
+        "z": "556f124d2b9639ba",
+        "group": "0ca882c5117c7127",
+        "name": "Historico",
+        "order": 7,
+        "width": 0,
+        "height": 0,
+        "columns": [
+            {
+                "field": "umidade",
+                "title": "umidade",
+                "width": "25%",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "luminosidade",
+                "title": "luminosidade",
+                "width": "25%",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "temperatura",
+                "title": "temperatura",
+                "width": "25%",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "pressao",
+                "title": "pressao",
+                "width": "25%",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "altitude",
+                "title": "altitude",
+                "width": "25%",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            }
+        ],
+        "outputs": 0,
+        "cts": false,
+        "x": 680,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "210518818f56feab",
+        "type": "mqtt in",
+        "z": "556f124d2b9639ba",
+        "name": "",
+        "topic": "estufa/bmp180/altitude",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "a0d7c8f8cf3264a2",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 680,
+        "y": 340,
+        "wires": [
+            [
+                "679af6e9e5f9f56d"
+            ]
+        ]
+    },
+    {
+        "id": "309360589f5f2cde",
+        "type": "mqtt in",
+        "z": "556f124d2b9639ba",
+        "name": "",
+        "topic": "estufa/status",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "a0d7c8f8cf3264a2",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 650,
+        "y": 400,
+        "wires": [
+            [
+                "e634b8ae79061656"
+            ]
+        ]
+    },
+    {
+        "id": "6fea8e72a947738e",
+        "type": "mqtt in",
+        "z": "556f124d2b9639ba",
+        "name": "",
+        "topic": "estufa/bmp180/pressao",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "a0d7c8f8cf3264a2",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 680,
+        "y": 280,
+        "wires": [
+            [
+                "50ea1b9d6adaee09"
+            ]
+        ]
+    },
+    {
+        "id": "679af6e9e5f9f56d",
+        "type": "ui_text",
+        "z": "556f124d2b9639ba",
+        "group": "0ca882c5117c7127",
+        "order": 6,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "altitude",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 920,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "e634b8ae79061656",
+        "type": "ui_text",
+        "z": "556f124d2b9639ba",
+        "group": "0ca882c5117c7127",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "status",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 910,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "50ea1b9d6adaee09",
+        "type": "ui_text",
+        "z": "556f124d2b9639ba",
+        "group": "0ca882c5117c7127",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "pressão",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 920,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "98fa5b36b7577c46",
+        "type": "mqtt in",
+        "z": "556f124d2b9639ba",
+        "name": "",
+        "topic": "estufa/ldr/luminosidade",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "a0d7c8f8cf3264a2",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 1220,
+        "y": 260,
+        "wires": [
+            [
+                "b83bba8b11574077"
+            ]
+        ]
+    },
+    {
+        "id": "67f1fa18856c1e71",
+        "type": "mqtt in",
+        "z": "556f124d2b9639ba",
+        "name": "",
+        "topic": "estufa/bmp180/temperatura",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "a0d7c8f8cf3264a2",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 1240,
+        "y": 320,
+        "wires": [
+            [
+                "b83bba8b11574077"
+            ]
+        ]
+    },
+    {
+        "id": "264aa47d78f68a13",
+        "type": "mqtt in",
+        "z": "556f124d2b9639ba",
+        "name": "",
+        "topic": "estufa/dht22/umidade",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "a0d7c8f8cf3264a2",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 1220,
+        "y": 200,
+        "wires": [
+            [
+                "b83bba8b11574077"
+            ]
+        ]
+    },
+    {
+        "id": "c776e6dbeacc3c30",
+        "type": "mqtt in",
+        "z": "556f124d2b9639ba",
+        "name": "",
+        "topic": "estufa/bmp180/altitude",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "a0d7c8f8cf3264a2",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 1220,
+        "y": 440,
+        "wires": [
+            [
+                "b83bba8b11574077"
+            ]
+        ]
+    },
+    {
+        "id": "b99df6417664fa9a",
+        "type": "mqtt in",
+        "z": "556f124d2b9639ba",
+        "name": "",
+        "topic": "estufa/bmp180/pressao",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "a0d7c8f8cf3264a2",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 1220,
+        "y": 380,
+        "wires": [
+            [
+                "b83bba8b11574077"
+            ]
+        ]
+    },
+    {
+        "id": "2513e7635483f272",
+        "type": "mqtt in",
+        "z": "556f124d2b9639ba",
+        "name": "",
+        "topic": "estufa/ldr/luminosidade",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "a0d7c8f8cf3264a2",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 160,
+        "y": 180,
+        "wires": [
+            [
+                "4a4dca41e6f5ddd4"
+            ]
+        ]
+    },
+    {
+        "id": "fab893c668914554",
+        "type": "mqtt in",
+        "z": "556f124d2b9639ba",
+        "name": "",
+        "topic": "estufa/bmp180/temperatura",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "a0d7c8f8cf3264a2",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 180,
+        "y": 240,
+        "wires": [
+            [
+                "14aaf15eeeac12e8"
+            ]
+        ]
+    },
+    {
+        "id": "51147f168d3baa1c",
+        "type": "mqtt in",
+        "z": "556f124d2b9639ba",
+        "name": "",
+        "topic": "estufa/dht22/umidade",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "a0d7c8f8cf3264a2",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 160,
+        "y": 120,
+        "wires": [
+            [
+                "96fc91f97e68c65c"
+            ]
+        ]
+    },
+    {
+        "id": "44bd0377e7fa60e1",
+        "type": "mqtt in",
+        "z": "556f124d2b9639ba",
+        "name": "",
+        "topic": "estufa/bmp180/pressao",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "a0d7c8f8cf3264a2",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 160,
+        "y": 300,
+        "wires": [
+            [
+                "4c88a486525793d0"
+            ]
+        ]
+    },
+    {
+        "id": "96fc91f97e68c65c",
+        "type": "ui_gauge",
+        "z": "556f124d2b9639ba",
+        "name": "",
+        "group": "0ca882c5117c7127",
+        "order": 8,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "gauge",
+        "label": "units",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 390,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "4a4dca41e6f5ddd4",
+        "type": "ui_gauge",
+        "z": "556f124d2b9639ba",
+        "name": "",
+        "group": "0ca882c5117c7127",
+        "order": 9,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "gauge",
+        "label": "units",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "4063",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 390,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "14aaf15eeeac12e8",
+        "type": "ui_gauge",
+        "z": "556f124d2b9639ba",
+        "name": "",
+        "group": "0ca882c5117c7127",
+        "order": 10,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "gauge",
+        "label": "units",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "85",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 390,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "4c88a486525793d0",
+        "type": "ui_gauge",
+        "z": "556f124d2b9639ba",
+        "name": "",
+        "group": "0ca882c5117c7127",
+        "order": 11,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "gauge",
+        "label": "units",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "1100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 390,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "a0d7c8f8cf3264a2",
+        "type": "mqtt-broker",
+        "name": "meu mqtt",
+        "broker": "54ebefe55d2e4a88af571fd3771fddf5.s1.eu.hivemq.cloud",
+        "port": "8883",
+        "tls": "",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": true,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "0ca882c5117c7127",
+        "type": "ui_group",
+        "name": "Estufags",
+        "tab": "9f1b30c158ba6889",
+        "order": 1,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "8dc2c81d25beea29",
+        "type": "sqlitedb",
+        "db": "C:\\Users\\ADM\\.node-red\\estufaGs.db",
+        "mode": "RWC"
+    },
+    {
+        "id": "9f1b30c158ba6889",
+        "type": "ui_tab",
+        "name": "Estufags",
+        "icon": "dashboard",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "7d01e62da49c5531",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "node-red-dashboard": "3.6.6",
+            "node-red-node-sqlite": "2.0.1",
+            "node-red-node-ui-table": "0.4.5"
+        }
+    }
+]
